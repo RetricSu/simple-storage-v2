@@ -1,0 +1,8 @@
+{
+  "name": "simple-storage-v2",
+  "license": "MIT",
+  "scripts": {
+    "compile": "truffle compile"
+  },
+  "dependencies": {}
+}
