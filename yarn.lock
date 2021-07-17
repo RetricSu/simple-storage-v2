@@ -2,17 +2,7 @@
 # yarn lockfile v1
 
 
-"@openzeppelin/contracts-upgradeable@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.nlark.com/@openzeppelin/contracts-upgradeable/download/@openzeppelin/contracts-upgradeable-4.1.0.tgz#36a6113ceeda278ae14f740280e5388161dfd383"
-  integrity sha1-NqYRPO7aJ4rhT3QCgOU4gWHf04M=
-
-"@openzeppelin/contracts@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.nlark.com/@openzeppelin/contracts/download/@openzeppelin/contracts-4.1.0.tgz#baec89a7f5f73e3d8ea582a78f1980134b605375"
-  integrity sha1-uuyJp/X3Pj2OpYKnjxmAE0tgU3U=
-
-underscore@^1.13.1:
-  version "1.13.1"
-  resolved "https://registry.npm.taobao.org/underscore/download/underscore-1.13.1.tgz?cache=0&sync_timestamp=1618502952302&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Funderscore%2Fdownload%2Funderscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
-  integrity sha1-DBxr0t9UtrafIxQGbWW2zeb8+dE=
+prettier@^2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.3.2.tgz#ef280a05ec253712e486233db5c6f23441e7342d"
+  integrity sha512-lnJzDfJ66zkMy58OL5/NY5zp70S7Nz6KqcKkXYzn2tMVrNxvbqaBpg7H3qHaLxCJ5lNMsGuM8+ohS7cZrthdLQ==
