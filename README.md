@@ -31,7 +31,7 @@ then run
 
 ## Known issue
 
-one thing to notice is that, due to an known fact about decimal difference between CKB token and ETH token, you should set `gasPrice: "0"` in [truffle-config.js](/truffle-config.js#) for your truffle project, otherwise you will encounter `balance not enoug` issue during dryRun migration. set `gasPrice: 0` won't work, the `0` must be a string type`
+one thing to notice is that, due to an known fact about decimal difference between CKB token and ETH token, you should set `gasPrice: "0"` in [truffle-config.js](/truffle-config.js#L87) for your truffle project, otherwise you will encounter `balance not enoug` issue during dryRun migration. set `gasPrice: 0` won't work, the `0` must be a string type`
 
 ## SimpleStorageV2 Contract info
 
