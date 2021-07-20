@@ -84,7 +84,7 @@ module.exports = {
     development: {
       host: rpc_url.hostname, // Localhost (default: none)
       port: rpc_url.port, // Standard Ethereum port (default: none)
-      gasPrice: "0", // noti`e: `gasPrice: 0` won't work in dryRun mode. 0 must be string type.
+      gasPrice: "0", // notice: `gasPrice: 0` won't work in dryRun mode. 0 must be string type.
       network_id: "*", // Any network (default: none)
       provider: () => polyjuiceTruffleProvider,
     },
