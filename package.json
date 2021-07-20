@@ -1,8 +1,23 @@
 {
-  "name": "simple-storage-v2",
+  "name": "@polyjuice-provider/simple-storage-v2",
+  "version": "0.0.1-rc6",
   "license": "MIT",
   "scripts": {
-    "compile": "truffle compile"
+    "fmt": "prettier --write truffle-config.js migrations/* tests/* package.json",
+    "lint": "eslint -c ../../.eslintrc.js \"src/**/*.ts\"",
+    "build": "truffle compile",
+    "test": "echo 'no test for simple-storage-v2'",
+    "compile": "truffle compile",
+    "clean": "rm -rf build/",
+    "deploy": "truffle migrate --network development",
+    "deploy:rinkeby": "truffle migrate --network rinkeby"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@polyjuice-provider/truffle": "0.0.1-rc6",
+    "@polyjuice-provider/web3": "^0.0.1-rc6",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "prettier": "^2.3.2"
+  }
 }

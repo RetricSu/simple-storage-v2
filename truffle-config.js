@@ -17,12 +17,43 @@
  * phrase from a file you've .gitignored so it doesn't accidentally become public.
  *
  */
+const HDWalletProvider = require("@truffle/hdwallet-provider");
+const { PolyjuiceHDWalletProvider } = require("@polyjuice-provider/truffle");
+const { PolyjuiceHttpProvider } = require("@polyjuice-provider/web3");
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
-// const infuraKey = "fj4jll3k.....";
-//
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const root = require("path").join.bind(this, __dirname, ".");
+require("dotenv").config({ path: root(".env") });
+
+const rpc_url = new URL(process.env.WEB3_JSON_RPC);
+
+const godwoken_rpc_url = process.env.WEB3_JSON_RPC;
+const polyjuice_config = {
+  rollupTypeHash: process.env.ROLLUP_TYPE_HASH,
+  ethAccountLockCodeHash: process.env.ETH_ACCOUNT_LOCK_CODE_HASH,
+  web3Url: godwoken_rpc_url,
+};
+
+// our specail usage for polyjuice chain
+const polyjuiceHttpProvider = new PolyjuiceHttpProvider(
+  polyjuice_config.web3Url,
+  polyjuice_config
+);
+const polyjuiceTruffleProvider = new PolyjuiceHDWalletProvider(
+  [
+    {
+      privateKeys: [process.env.PRIVATE_KEY],
+      providerOrUrl: polyjuiceHttpProvider,
+    },
+  ],
+  polyjuice_config
+);
+
+// original usage for truffle to depoly on ethereum chain
+const infuraKey = "your infura Id";
+const truffleProvider = new HDWalletProvider({
+  privateKeys: [process.env.PRIVATE_KEY],
+  providerOrUrl: godwoken_rpc_url,
+});
 
 module.exports = {
   /**
@@ -36,6 +67,14 @@ module.exports = {
    */
 
   networks: {
+    // run "truffle develop", you will get interactive terminal to interact with polyjuice chain
+    develop: {
+      port: rpc_url.port,
+      network_id: "*",
+      accounts: 5,
+      defaultEtherBalance: 500,
+      blockTime: 3,
+    },
     // Useful for testing. The `development` name is special - truffle uses it by default
     // if it's defined here and no other network is specified at the command line.
     // You should run a client (like ganache-cli, geth or parity) in a separate terminal
@@ -43,9 +82,11 @@ module.exports = {
     // options below to some value.
     //
     development: {
-     host: "localhost",     // Localhost (default: none)
-     port: 8024,            // Standard Ethereum port (default: none)
-     network_id: "0x3",       // Any network (default: none)
+      host: rpc_url.hostname, // Localhost (default: none)
+      port: rpc_url.port, // Standard Ethereum port (default: none)
+      gasPrice: "0", // noti`e: `gasPrice: 0` won't work in dryRun mode. 0 must be string type.
+      network_id: "*", // Any network (default: none)
+      provider: () => polyjuiceTruffleProvider,
     },
     // Another network with more advanced options...
     // advanced: {
@@ -58,14 +99,14 @@ module.exports = {
     // },
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
-    // ropsten: {
-    // provider: () => new HDWalletProvider(mnemonic, `https://ropsten.infura.io/v3/YOUR-PROJECT-ID`),
-    // network_id: 3,       // Ropsten's id
-    // gas: 5500000,        // Ropsten has a lower block limit than mainnet
-    // confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-    // timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-    // skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
-    // },
+    rinkeby: {
+      provider: () => truffleProvider,
+      network_id: 4, // rinkeby's id
+      gas: 4500000,
+      gasPrice: 1000, //10000000000,
+      confirmations: 2, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+    },
     // Useful for private networks
     // private: {
     // provider: () => new HDWalletProvider(mnemonic, `https://network.io`),
@@ -82,7 +123,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      // version: "0.5.1",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: "0.6.8", // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -91,7 +132,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
@@ -101,6 +142,6 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
 
   db: {
-    enabled: false
-  }
+    enabled: false,
+  },
 };
