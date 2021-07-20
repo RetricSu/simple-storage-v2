@@ -13,7 +13,9 @@
     "deploy:rinkeby": "truffle migrate --network rinkeby"
   },
   "dependencies": {
-    "@polyjuice-provider/truffle": "0.0.1-rc6"
+    "@polyjuice-provider/truffle": "0.0.1-rc6",
+    "@polyjuice-provider/web3": "^0.0.1-rc6",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
     "prettier": "^2.3.2"

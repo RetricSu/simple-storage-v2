@@ -1,35 +1,39 @@
 # simple test contract
 
-SimpleStorageV2 is a simple test ethereum smart contract for [polyjuice-provider](https://github.com/nervosnetwork/polyjuice-provider) used on Godwoken-Polyjuice chain.
+SimpleStorageV2 is a truffle project that contains simple test ethereum smart-contract for [polyjuice-provider](https://github.com/nervosnetwork/polyjuice-provider) used on Godwoken-Polyjuice chain.
 
-compile contract:
+## Compile contract
 
 ```sh
   yarn compile
 ```
 
-depoly contract:
+## Depoly contract
 
-you can also deploy this contract to godwoken-polyjuice chain via spceial truffle compatible provider.
+deploy to godwoken-polyjuice chain using truffle and `@polyjuice-provider/truffle`.
 
-before deploy, you should set a .test.env file:
+first, set a `.env` file:
 
 ```sh
-cat > ./.test.env <<EOF
-WEB3_JSON_RPC=<godwoken web3 rpc>
+cat > ./.env <<EOF
+WEB3_JSON_RPC=<godwoken wb3 rpc>
 ROLLUP_TYPE_HASH=<godwoken rollup type hash>
 ETH_ACCOUNT_LOCK_CODE_HASH=<eth account lock code hash>
 PRIVATE_KEY=<your eth test private key, do not use in production>
 EOF
 ```
 
-then simply run
+then run
 
 ```sh
   yarn deploy
 ```
 
-info:
+## Known issue
+
+one thing to notice is that, due to an known fact about decimal difference between CKB token and ETH token, you should set `gasPrice: "0"` in [truffle-config.js](/truffle-config.js#) for your truffle project, otherwise you will encounter `balance not enoug` issue during dryRun migration. set `gasPrice: 0` won't work, the `0` must be a string type`
+
+## SimpleStorageV2 Contract info
 
 ```sh
 bytecode: 

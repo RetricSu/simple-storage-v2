@@ -22,7 +22,7 @@ const { PolyjuiceHDWalletProvider } = require("@polyjuice-provider/truffle");
 const { PolyjuiceHttpProvider } = require("@polyjuice-provider/web3");
 
 const root = require("path").join.bind(this, __dirname, ".");
-require("dotenv").config({ path: root(".test.env") });
+require("dotenv").config({ path: root(".env") });
 
 const rpc_url = new URL(process.env.WEB3_JSON_RPC);
 
@@ -84,10 +84,9 @@ module.exports = {
     development: {
       host: rpc_url.hostname, // Localhost (default: none)
       port: rpc_url.port, // Standard Ethereum port (default: none)
-      gasPrice: 0,
+      gasPrice: "0", // noti`e: `gasPrice: 0` won't work in dryRun mode. 0 must be string type.
       network_id: "*", // Any network (default: none)
       provider: () => polyjuiceTruffleProvider,
-      skipDryRun: true, // this is important!
     },
     // Another network with more advanced options...
     // advanced: {
@@ -107,7 +106,6 @@ module.exports = {
       gasPrice: 1000, //10000000000,
       confirmations: 2, // # of confs to wait between deployments. (default: 0)
       timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
     },
     // Useful for private networks
     // private: {
